@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}The Store{% endblock title %}
+{% block content %}
+   
+    {% if user.is_authenticated %}
+        <p class="text-center">Welcome Back {{ user.username }}!</p>
+    {% else %}
+        <p class="text-center">You are not logged in</p>
+    {% endif %}
+
+    <div class="container-fluid">
+        <div class="row p-5">
+          <div class="col-sm-4">
+            <img class="card-img h-100" src="{% static 'images/dresses.jpg' %}">
+          </div>
+          <div class="col-sm-4">
+            <img class="card-img h-100" src="{% static 'images/jackets.jpg' %}" >
+          </div>
+          <div class="col-sm-4 ">
+            <img class="card-img h-100" src="{% static 'images/jeans.jpg' %}" >
+          </div>
+        </div>
+
+
+        <div class="row mt-3 p-5">
+            <div class="col-sm-4 ">
+              <img class="card-img h-100" src="{% static 'images/skirts.jpg' %}">
+            </div>
+            <div class="col-sm-4">
+              <img class="card-img h-100" src="{% static 'images/sweater.jpg' %}" >
+            </div>
+            <div class="col-sm-4 ">
+              <img class="card-img h-100" src="{% static 'images/shirts.jpg' %}" >
+            </div>
+
+      </div>
+
+{% endblock content %}

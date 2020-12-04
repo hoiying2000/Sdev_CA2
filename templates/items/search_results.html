@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock title %}
+{% block content %}
+<h1>Search Results</h1>
+    {% if item_list %}
+        {% for item in item_list %}
+            <div>
+                <h3 class="mt-5"><a class="text-dark" href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                <p>Brand: {{ item.brand }}</p>
+                <p>Price: $ {{ item.price }}</p>
+            
+        {% endfor %}
+    {% else %}
+            <div>
+                <h3>No Results Found</h3>
+            </div>
+    {% endif %}
+{% endblock content %}

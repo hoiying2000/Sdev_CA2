@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}List{% endblock title %}
+{% block content %}
+   
+{% for item in item_list %}
+        <div>
+            <h2><a class="text-dark" href="{{item.get_absolute_url}}">{{ item.title }}</a></h2>
+        </div>
+        
+    {% endfor %}
+{% endblock content %}
