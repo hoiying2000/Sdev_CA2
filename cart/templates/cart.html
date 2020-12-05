@@ -1,0 +1,113 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head><body>{% extends "base.html" %}
+    {% load static %}
+    {% block metadescription %}
+        This is the shopping cart page. Proceed to review your items and place the order.
+    {% endblock %}
+    {% block title %}
+        Clothes store name
+    {% endblock %}
+    {% block content %}
+        {% if not cart_items %}
+            <div>
+                <div class="text-center">
+                    <br>
+                    <h1 class="text-center my_title">
+                        Your shopping cart is empty
+                    </h1>
+                    <br>
+                    <p class="text-center">
+                        Please click <a href="{% url 'item_list' %}">here</a> to continue shopping.
+                    </p>
+                </div>
+            </div>
+        {% else %}
+            <div>
+                <div class="text-center">
+                    <br>
+                    <h1 class="text-center my_title">
+                        Your shopping cart
+                    </h1>
+                    <br>
+                </div>
+            </div>
+            <div class="row mx-auto">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+                    
+                            {% for cart_item in cart_items %}
+                                
+                                    {% if cart_item.quantity < cart_item.item.stock %}
+                                        <a href="{% url 'cart:add_cart' cart_item.product.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>
+                                        <a href="{% url 'cart:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>
+                                        <a href="{% url 'cart:full_remove' cart_item.product.id %}" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
+                                    {% else %}
+                                    <td>
+                                        &nbsp;<a href="{% url 'cart:cart_remove' cart_item.item.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
+                                        <a href="{% url 'cart:full_remove' cart_item.item.id %}" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
+                                    </td>
+                                    {% endif %}
+                                
+                            {% endfor %}
+                        <table class="table my_custom_table">
+                        <thead class="my_custom_thead">
+                            <tr>
+                                <th colspan="5">
+                                    Your items
+                                </th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody><tr>
+                                    <td>
+                                        <a href="{{item.get_absolute_url}}"><img class="itemcover" src="{{ item.cover.url }}" alt="{{ item.title }}"></a>
+                                    </td>
+                                    <td class="text-left">
+                                        {{cart_item.item.title}}
+                                        <br>
+                                        Unit Price: €{{cart_item.item.price}}
+                                        <br>
+                                        Qty: {{cart_item.quantity}} x €{{cart_item.item.price}}
+                                    </td>
+                                    <td>
+                                        {{cart_item.sub_total}}
+                                    </td><td>
+                                            <a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/%7B%%20url%20&#39;cart:add_cart&#39;%20cart_item.product.id%20%%7D" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>&nbsp;
+                                            <a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/cart.html" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
+                                            <a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/cart.html" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
+                                        </td><td>
+                                            &nbsp;<a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/cart.html" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
+                                            <a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/cart.html" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
+                                        </td>
+                                        <td></td></tr></tbody>
+                    </table>
+                    
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+                    <table class="table my_custom_table">
+                        <thead class="my_custom_thead">
+                            <tr>
+                                <th>
+                                    Checkout
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Please review your shopping cart items before proceeding with the order payment.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    Your total is: <strong>€{{ total }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mx-auto">
+                        <a href="{% url 'item_list' %}" class="btn btn-secondary btn-block my_custom_button">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+        {% endif %}
+    {% endblock %}</body></html>

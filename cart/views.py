@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from shop.models import Item
 from .models import Cart, CartItem
+from django.conf import settings
+from order.models import Order, OrderItem
 
 def _cart_id(request):
     cart = request.session.session_key
@@ -55,6 +57,6 @@ def cart_remove(request, item_id):
 def full_remove(request, item_id):
     cart = Cart.objects.get(cart_id = _cart_id(request))
     item = get_object_or_404(Item, id = item_id)
-    cart_item = CartItem.objects.get(product = product, cart = cart)
+    cart_item = CartItem.objects.get(item = item, cart = cart)
     cart_item.delete()
     return redirect('cart:cart_detail')

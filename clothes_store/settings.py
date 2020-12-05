@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pages',
     'accounts',
     'cart',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,8 @@ ROOT_URLCONF = 'clothes_store.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [str(BASE_DIR.joinpath('templates'))],
+        'DIRS': [str(BASE_DIR.joinpath('templates')),
+                str(BASE_DIR.joinpath('cart', 'templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

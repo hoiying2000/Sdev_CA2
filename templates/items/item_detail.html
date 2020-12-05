@@ -12,6 +12,8 @@
     <p>Price: {{ item.price }}</p>
   </div>
 
+  <a class="btn btn-secondary" href="{% url 'cart:add_cart' item.id %}"> Add to Cart</a>
+
   <p><a href = "{% url 'post_edit' %}">+ Edit Item</a></p>
   <p><a href = "{% url 'post_delete' %}">Delete Item</a></p>
 {% endblock content %}
