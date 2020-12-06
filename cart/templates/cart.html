@@ -104,6 +104,20 @@
                         </tbody>
                     </table>
                     <div class="mx-auto">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="{{ data_key }}"
+                                    data-amount="{{ stripe_total }}"
+                                    data-name="The Clothes Store"
+                                    data-locale="auto"
+                                    data-currency="eur"
+                                    data-shipping-address="true"
+                                    data-billing-address="true"
+                                    data-zip-code="true">
+                                </script>
+                        </form>
+                            
                         <a href="{% url 'item_list' %}" class="btn btn-secondary btn-block my_custom_button">Continue Shopping</a>
                     </div>
                 </div>
