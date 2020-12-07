@@ -1,7 +1,5 @@
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
 
 from .models import Item
 
@@ -27,20 +25,3 @@ class SearchResultsListView(ListView):
         return Item.objects.filter(
             Q(title__icontains=query) | Q(title__icontains=query)
         )
-
-class ItemCreateView(CreateView):
-    model = Item
-    fields = ('cover', 'title', 'brand', 'price')
-    template_name = 'post_new.html'
-
-
-class ItemUpdateView(UpdateView):
-    model = Item
-    fields = ('cover', 'title', 'brand', 'price')
-    template_name = 'post_edit.html'
-
-
-class ItemDeleteView(DeleteView):
-    model = Item
-    template_name = 'post_delete.html'
-    success_url = reverse_lazy('home')
