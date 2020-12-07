@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}The Store{% endblock title %}
+{% block title %}The Clothes Store{% endblock title %}
 {% block content %}
    
-    {% if user.is_authenticated %}
-        <p class="text-center">Welcome Back {{ user.username }}!</p>
-    {% else %}
-        <p class="text-center">You are not logged in</p>
-    {% endif %}
 
     <div class="container-fluid">
         <div class="row p-5">

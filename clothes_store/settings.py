@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'cart',
     'order',
     'stripe',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [str(BASE_DIR.joinpath('templates')),
                  str(BASE_DIR.joinpath('cart', 'templates')),
-                 str(BASE_DIR.joinpath('order', 'templates'))],
+                 str(BASE_DIR.joinpath('order', 'templates')),
+                 str(BASE_DIR.joinpath('accounts', 'templates')),
+                 str(BASE_DIR.joinpath('shop', 'templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,9 +142,7 @@ STATICFILES_FINDER = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL ='home'
-
 STRIPE_PUBLISHABLE_KEY = '<pk_test_51HvQoGK9RZhFbQkkfPdDbeJQWQBvgSQzM5qbssxCauPdZxFiI4HELIV6GTZa3hUnkVshWXP4oC5Wij9xlsUgMJ5E00WrvW3tPe>'
 STRIPE_SECRET_KEY = '<sk_test_51HvQoGK9RZhFbQkkyAooCV4kiFqLvuRGhCUvmfJUu4sXhuNBFkWDJnsq90HwDfZVUNE3JgwdPBlqO3nv0SPUMRSf00HXBQcAAu>'
  
+AUTH_USER_MODEL = 'accounts.CustomUser'

@@ -1,61 +1,33 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}The Store{% endblock title %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" crossorigin="anonymous">
+    <meta name="description" content="{% block metadescription %}{% endblock %}">
+	<title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-  <header>
 
 
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4
-     mb-3 bg-dark navbar-dark border-bottom shadow-sm">
-      <a href="{% url 'home' %}" class="navbar-brand my-0 mr-md-auto
-      font-weight-normal ">The Clothes Store</a>
+    <div class="container">
+        {% include 'top-navbar.html' %}
+        {% include 'header.html' %}
+        {% include 'navbar.html' %}
+        {% block content %}
+        {% endblock %}
 
-      <nav class="my-2 my-md-0 mr-md-3">
-
-        <a class="p-2 text-light" href="{% url 'item_list' %}">Clothes</a>
-        <a class="p-2 text-light" href="{% url 'post_new' %}">+ New item</a>
-        <a class="p-2 text-light" href="{% url 'about' %}">About</a>
-
-          
-        {% if user.is_authenticated %}
-          <a class="p-2 text-light" href="{% url 'logout' %}">Log Out</a>
-        {% else %}
-          <a class="p-2 text-light" href="{% url 'login' %}">Log In</a>
-    {% endif %}
-  
-
-</nav>
-
-{% if item_count > 0 %}
-<a class="nav-link text-light" href="{% url 'cart:cart_detail' %}"><i class="fas fa-shopping-cart"></i>({{item_count}})</a>
-{% endif %}
-
-<form class="form-inline mt-2 mt-md-0" action="{% url 'search_results' %}" method="get">
-  <input name="q" class="form-control" type="text" placeholder="Search" aria-label="Search">
-</form>
-
-
-
+        {% include 'footer.html' %}
     </div>
-  </header>
-  <div class="container">
-    {% block content %}
-    <script src="{% static 'js/base.js' %}"></script>
-    {% endblock content %}
-  </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
 </body>
 </html>
+
