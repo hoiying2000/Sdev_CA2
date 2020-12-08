@@ -1,0 +1,62 @@
+<!-- saved from url=(0091)https://elearning-ta.tudublin.ie/pluginfile.php/613914/mod_resource/content/1/category.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head><body>{% extends "base.html" %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{ category.description|truncatewords:155 }}
+    {% else %}
+        Welcome to our Clothing Store
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name }} - The Clothes Store
+    {% else %}
+         Our Clothes Collection - The Clothes Store
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <!--Breadcrumb navigation-->
+    {% if category %}
+        <div>
+            <div>
+                <p><a href="{% url 'shop:itemCat' %}">Our Product Collection</a> | {{category.name}}</p>
+            </div>
+        </div>
+    {% endif %}
+    <div>
+    {% if category %}
+        <img src="{{category.image.url}}" alt="{{category.name}}">
+    </div>
+    <br>
+    <div>
+        <h1>{{category.name}}</h1>
+        <p>{{category.description}}</p>
+    </div>
+    {% else %}
+        
+    <br>
+    <div>
+        <h1>Our Clothes Collection</h1>
+        <p>
+            dunno yet
+        </p>
+    </div>
+    {% endif %}
+    <div>
+        <div>
+            {% for item in items %}
+                <div>
+                    <div>
+                        <a href="{{item.get_absolute_url}}"><img src="{{item.cover.url}}"></a>
+                        <div>
+                            <h4>{{item.title}}</h4>
+                            <p>€{{item.price}}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div>
+{% endblock %}</body></html>

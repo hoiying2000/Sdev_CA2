@@ -14,7 +14,11 @@
               Shop
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{% url 'item_list' %}">All Clothes</a>
+              <a class="dropdown-item" href="{% url 'shop:itemCat' %}">All Clothes</a>
+              {% for cat in links %}
+                <a href="{{cat.get_absolute_url}}">{{cat.name}}</a>
+                <br>
+              {% endfor %}
               <a class="dropdown-item" href="{% url 'about' %}">About Us</a>
             </div>
 
@@ -23,9 +27,7 @@
         {% endif %}
 
       </ul>
-      <form class="form-inline mt-2 mt-md-0" action="{% url 'search_results' %}" method="get">
-        <input name="q" class="form-control" type="text" placeholder="Search" aria-label="Search">
-      </form>
+
     </div>
   </nav>
 <nav>

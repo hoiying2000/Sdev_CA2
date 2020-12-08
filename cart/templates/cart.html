@@ -16,7 +16,7 @@
                     </h1>
                     <br>
                     <p class="text-center">
-                        Please click <a href="{% url 'item_list' %}">here</a> to continue shopping.
+                        Please click <a href="{% url 'shop:itemCat' %}">here</a> to continue shopping.
                     </p>
                 </div>
             </div>
@@ -33,20 +33,6 @@
             <div class="row mx-auto">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
                     
-                            {% for cart_item in cart_items %}
-                                
-                                    {% if cart_item.quantity < cart_item.item.stock %}
-                                        <a href="{% url 'cart:add_cart' cart_item.product.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>
-                                        <a href="{% url 'cart:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>
-                                        <a href="{% url 'cart:full_remove' cart_item.product.id %}" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
-                                    {% else %}
-                                    <td>
-                                        &nbsp;<a href="{% url 'cart:cart_remove' cart_item.item.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
-                                        <a href="{% url 'cart:full_remove' cart_item.item.id %}" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
-                                    </td>
-                                    {% endif %}
-                                
-                            {% endfor %}
                         <table class="table my_custom_table">
                         <thead class="my_custom_thead">
                             <tr>
@@ -70,12 +56,20 @@
                                     <td>
                                         {{cart_item.sub_total}}
                                     </td><td>
-                                            <a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/%7B%%20url%20&#39;cart:add_cart&#39;%20cart_item.product.id%20%%7D" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>&nbsp;
-                                            <a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/cart.html" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
-                                            <a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/cart.html" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
-                                        </td><td>
-                                            &nbsp;<a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/cart.html" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
-                                            <a href="https://elearning-ta.tudublin.ie/pluginfile.php/616936/mod_resource/content/1/cart.html" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
+                                        {% for cart_item in cart_items %}
+                                
+                                        {% if cart_item.quantity < cart_item.item.stock %}
+                                            <a href="{% url 'cart:add_cart' cart_item.item.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>
+                                            <a href="{% url 'cart:cart_remove' cart_item.item.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>
+                                            <a href="{% url 'cart:full_remove' cart_item.item.id %}" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
+                                        {% else %}
+                                        <td>
+                                            &nbsp;<a href="{% url 'cart:cart_remove' cart_item.item.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
+                                            <a href="{% url 'cart:full_remove' cart_item.item.id %}" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
+                                        </td>
+                                        {% endif %}
+                                    
+                                {% endfor %}
                                         </td>
                                         <td></td></tr></tbody>
                     </table>
@@ -118,7 +112,7 @@
                                 </script>
                         </form>
                             
-                        <a href="{% url 'item_list' %}" class="btn btn-secondary btn-block my_custom_button">Continue Shopping</a>
+                        <a href="{% url 'shop:itemCat' %}" class="btn btn-secondary btn-block my_custom_button">Continue Shopping</a>
                     </div>
                 </div>
             </div>

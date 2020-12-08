@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block metadescription %}
+	{{ item.description|truncatewords:155 }}
+{% endblock %}
+{% block title %}
+	{{ item.title }} - The Clothes Store
+{% endblock %}
+{% block content %}
+	<div>
+		<div>
+			<p><a href="{% url 'shop:itemCat' %}">Home</a> | <a href="{{ item.category.get_url }}">{{item.category}}</a> | {{item.title}}</p>
+		</div>
+		<div>
+			<br>
+			<div>
+				<div>
+					<div>
+						<img src="{{item.cover.url}}" alt="{{item.title}}">
+					</div>
+				</div>
+				<div>
+					<div>
+						<p>{{item.title}}</p>
+						<p>€ {{item.price}}</p>
+						{% if item.stock == 0%}
+							<p><b>Out of Stock</b></p>
+						{% else %}
+							<a class="btn btn-secondary" href="{% url 'cart:add_cart' item.id %}">Add to Cart</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

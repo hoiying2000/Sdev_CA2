@@ -1,27 +1,24 @@
-from django.views.generic import ListView, DetailView
 from django.db.models import Q
+from .models import Item, Category
+from django.shortcuts import render, get_object_or_404
 
-from .models import Item
+def itemCat(request, category_id=None):
+    c_page = None
+    items = None
+    if category_id !=None:
+        c_page = get_object_or_404(Category, id=category_id)
+        items = Item.objects.filter(category=c_page, avaliable=True)
+    else:
+        items = Item.objects.all().filter(avaliable=True)
+
+    return render(request, 'shop/category.html', {'category':c_page, 'items':items})
 
 
-class ItemListView(ListView):
-    model = Item
-    context_object_name = 'item_list'
-    template_name = 'items/item_list.html'
+def item_detail(request, category_id, item_id):
+    try:
+        item = Item.objects.get(category_id=category_id, id=item_id)
+    except Exception as e:
+        raise e
+    return render(request, 'shop/item.html', {'item':item})
 
 
-class ItemDetailView(DetailView):
-    model = Item
-    context_object_name = 'item'
-    template_name = 'items/item_detail.html'
-
-class SearchResultsListView(ListView):
-    model = Item
-    context_object_name = 'item_list'
-    template_name = 'items/search_results.html'
-
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        return Item.objects.filter(
-            Q(title__icontains=query) | Q(title__icontains=query)
-        )

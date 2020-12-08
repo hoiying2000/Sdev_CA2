@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import ItemListView, ItemDetailView, SearchResultsListView
+from . import views
+
+app_name = 'shop'
 
 urlpatterns = [
-    path('', ItemListView.as_view(), name = 'item_list'),
-    path('<uuid:pk>', ItemDetailView.as_view(), name = 'item_detail'),
-    path('search/', SearchResultsListView.as_view(), name='search_results'),
+    path('', views.itemCat, name = 'itemCat'),
+    path('<uuid:category_id>/', views.itemCat, name='items_by_category'),
+    path('<uuid:category_id>/<uuid:item_id>/', views.item_detail, name='item_detail'),
 ]
