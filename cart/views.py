@@ -5,6 +5,9 @@ from django.conf import settings
 from order.models import Order, OrderItem
 import stripe
 from django.core.exceptions import ObjectDoesNotExist
+from vouchers.models import Voucher
+from vouchers.forms import VoucherApplyForm
+from decimal import Decimal
 
 def _cart_id(request):
     cart = request.session.session_key
@@ -35,6 +38,11 @@ def add_cart(request, item_id):
     return redirect('cart:cart_detail')
 
 def cart_detail(request, total = 0, counter = 0, cart_items = None):
+    discount = 0
+    voucher_id = 0
+    new_total = 0
+    voucher = None
+    price = 0
     try:
         cart = Cart.objects.get(cart_id = _cart_id(request))
         cart_items = CartItem.objects.filter(cart = cart, active = True)
@@ -47,6 +55,18 @@ def cart_detail(request, total = 0, counter = 0, cart_items = None):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     stripe_total = int(total * 100)
     data_key = settings.STRIPE_PUBLISHABLE_KEY  
+    voucher_apply_form = VoucherApplyForm()
+
+    try:
+        voucher_id = request.session.get('voucher_id')
+        voucher = Voucher.objects.get(id = voucher_id)
+        if voucher != None:
+            discount = (total * (voucher.discount/Decimal('100')))
+            new_total = (total - discount)
+            stripe_total = int(new_total * 100)
+    except:
+        ObjectDoesNotExist
+        pass
     
     if request.method == 'POST':
         print(request.POST)
@@ -91,6 +111,11 @@ def cart_detail(request, total = 0, counter = 0, cart_items = None):
                     shippingCountry = shippingCountry
                     )
                 order_details.save()
+                if voucher != None:
+                    order_details.total = new_total
+                    order_details.voucher = voucher
+                    order_details.discount = discount
+                order_details.save()
                 for order_item in cart_items:
                     oi = OrderItem.objects.create(
                         item = order_item.item.name,
@@ -98,6 +123,11 @@ def cart_detail(request, total = 0, counter = 0, cart_items = None):
                         price = order_item.item.price,
                         order = order_details
                     )
+                    if voucher != None:
+                        discount = (oi.price * (voucher.discount/Decimal('100')))
+                        oi.price = (oi.price - discount)
+                    else:
+                        oi.price = oi.price * oi.quantity
                     oi.save()
 
                     items = item.objects.get(id=order_item.item.id)
@@ -111,7 +141,7 @@ def cart_detail(request, total = 0, counter = 0, cart_items = None):
         except stripe.error.CardError as e:
             return false, e
 
-    return render(request, 'cart.html', {'cart_items':cart_items, 'total':total, 'counter':counter, 'date_key':data_key, 'stripe_total':stripe_total})
+    return render(request, 'cart.html', {'cart_items':cart_items, 'total':total, 'counter':counter, 'date_key':data_key, 'stripe_total':stripe_total, 'voucher_apply_form': voucher_apply_form, 'new_total': new_total, 'voucher': voucher, 'discount': discount})
 
 def cart_remove(request, item_id):
     cart = Cart.objects.get(cart_id = _cart_id(request))
