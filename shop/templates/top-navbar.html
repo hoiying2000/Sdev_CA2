@@ -3,7 +3,7 @@
 		<ul>
 			{% if user.is_authenticated %}
 			<li>
-                Welcome, <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+                Welcome, <a href="#" class="dropdown-toggle text-dark" data-toggle="dropdown" 
                 aria-haspopup="true" aria-expanded="false">{{ user.username }} 
 				<i class="fas fa-user-circle"></i></a>
 				<div class="dropdown-menu dropdown-menu-right">
@@ -11,11 +11,11 @@
 				</div>
 			</li>
 			<li>
-				<a href="{% url 'signout' %}">Sign Out <i class="fas fa-sign-out-alt"></i></a>
+				<a class="text-dark" href="{% url 'signout' %}">Sign Out <i class="fas fa-sign-out-alt"></i></a>
 			</li>
 			{% else %}
 			<li>
-				<a href="{% url 'signup' %}">Sign Up <i class="fas fa-user-plus"></i></a>
+				<a class="text-dark" href="{% url 'signup' %}">Sign Up <i class="fas fa-user-plus"></i></a>
 			</li>
 			<li>
 				<a href="{% url 'signin' %}">Sign In <i class="fas fa-sign-in-alt"></i></a>
@@ -25,3 +25,4 @@
 		
 	</div>
 </div>
+

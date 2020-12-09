@@ -43,9 +43,9 @@
         </p>
     </div>
     {% endif %}
-    <div>
-        <div>
-            {% for item in items %}
+    <div class="container">
+        <div class="row mx-auto">
+            {% for item in items.object_list %}
                 <div>
                     <div>
                         <a href="{{item.get_absolute_url}}"><img src="{{item.cover.url}}"></a>
@@ -58,5 +58,15 @@
             {% endfor %}
         </div>
         <br>
+        <div class="mx-auto">
+            {% if items.paginator.num_pages > 1 %}
+            <hr>
+            <div class="text-center">
+                {% for pg in items.paginator.page_range %}
+                    <a href="?page={{pg}}" class="btn btn-light btn-sm {% if items.number == pg %}active{% endif %.}">{{pg}}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}</body></html>

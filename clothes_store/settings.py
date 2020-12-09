@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'stripe',
     'crispy_forms',
     'vouchers',
+    'search_app',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +68,8 @@ TEMPLATES = [
                  str(BASE_DIR.joinpath('cart', 'templates')),
                  str(BASE_DIR.joinpath('order', 'templates')),
                  str(BASE_DIR.joinpath('accounts', 'templates')),
-                 str(BASE_DIR.joinpath('shop', 'templates'))],
+                 str(BASE_DIR.joinpath('shop', 'templates')),
+                 str(BASE_DIR.joinpath('search_app', 'templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

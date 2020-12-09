@@ -59,9 +59,9 @@
                                         {% for cart_item in cart_items %}
                                 
                                         {% if cart_item.quantity < cart_item.item.stock %}
-                                            <a href="{% url 'cart:add_cart' cart_item.item.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>
-                                            <a href="{% url 'cart:cart_remove' cart_item.item.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>
-                                            <a href="{% url 'cart:full_remove' cart_item.item.id %}" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
+                                            <a class="text-secondary" href="{% url 'cart:add_cart' cart_item.item.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>
+                                            <a class="text-secondary" href="{% url 'cart:cart_remove' cart_item.item.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>
+                                            <a class="text-secondary" href="{% url 'cart:full_remove' cart_item.item.id %}" class="custom_icon"><i class="fas fa-trash-alt custom_icon"></i></a>
                                         {% else %}
                                         <td>
                                             &nbsp;<a href="{% url 'cart:cart_remove' cart_item.item.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;

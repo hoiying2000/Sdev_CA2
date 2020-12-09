@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark p-4 bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,9 +14,9 @@
               Shop
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{% url 'shop:itemCat' %}">All Clothes</a>
+              <a class="dropdown-item mb-4" href="{% url 'shop:itemCat' %}">All Clothes</a>
               {% for cat in links %}
-                <a href="{{cat.get_absolute_url}}">{{cat.name}}</a>
+                <a class="dropdown-item" href="{{cat.get_absolute_url}}">{{cat.name}}</a>
                 <br>
               {% endfor %}
               <a class="dropdown-item" href="{% url 'about' %}">About Us</a>
@@ -26,8 +26,14 @@
         <a class="nav-link text-light" href="{% url 'cart:cart_detail' %}"><i class="fas fa-shopping-cart"></i>({{item_count}})</a>
         {% endif %}
 
+        <form class="form-inline my-2 my-lg-0" action="{% url 'search_app:searchResults' %}" method="get">
+          {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+          <button class="btn btn-secondary my-2 m-sm-0" type="submit">Search</button>
+        </form>
       </ul>
 
     </div>
+
   </nav>
 <nav>
