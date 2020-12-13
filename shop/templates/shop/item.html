@@ -9,7 +9,7 @@
 {% block content %}
 	<div>
 		<div>
-			<p><a href="{% url 'shop:itemCat' %}">Home</a> | <a href="{{ item.category.get_url }}">{{item.category}}</a> | {{item.title}}</p>
+			<p><a class="text-dark" href="{% url 'shop:itemCat' %}">Home</a> | <a class="text-dark" href="{{ item.category.get_url }}">{{item.category}}</a> | {{item.title}}</p>
 		</div>
 		<div>
 			<br>
